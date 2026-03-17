@@ -1,3 +1,5 @@
+// Credit: https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/lib/dbConnect.ts
+
 import mongoose from "mongoose";
 declare global {
   var mongoose: any;

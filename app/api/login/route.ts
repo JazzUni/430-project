@@ -21,6 +21,18 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Invalid Credentials" }, { status: 401 });
     }
 
-    return NextResponse.json({ message: "Login Successful" });
+    const response = NextResponse.json({ message: "Login Successful" });
+
+    // cookies
+    response.cookies.set("session", JSON.stringify({
+        userId: user._id,
+        lastActivity: Date.now()
+    }), {
+        httpOnly: true,
+        path: "/",
+        maxAge: 60 * 10
+    });
+
+    return response
     // open dashboard
 }

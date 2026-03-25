@@ -34,13 +34,13 @@ export default function Home() {
       </div>
 
       <div className="bg-white shadow-md rounded-xl p-8 w-full max-w-6xl text-center">
-
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Library Management System
+        <div className="text-center border-b pb-6">
+        <h1 className="text-4xl font-bold text-gray-900 tracking-tight">
+          Library Management Dashboard
         </h1>
 
-        <p className="text-gray-700 mb-6">Welcome to the library admin dashboard</p>
-        <p className="text-gray-700 mb-6">Search for users or books</p>
+        <p className="text-gray-500 mt-2 text-lg">Manage books, users, and system activity</p>
+        </div><br/>
 
         <div className="flex gap-2 mb-8">
           <input type="text" placeholder="Search users or books..." value={query} 
@@ -57,29 +57,65 @@ export default function Home() {
               Search
           </button>
         </div>
+        
+        <section className="bg-gray-50 rounded-xl p-6 text-left">
+          <h2 className="text-xl font-semibold mb-4 text-gray-900" >
+            Book Management
+          </h2>
+          <div className="w-10 h-1 bg-blue-500 rounded mb-4"></div>
           
-        <ul className="grid grid-cols-2 gap-4">
-          <li>
-            <Link href="/home/add-book" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
-              Add Books
-            </Link>
-          </li>
-          <li>
-            <Link href="/home/view-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
-              View Books
-            </Link>
-          </li>
-          <li>
-            <Link href="/home/borrow-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
-              Borrow Books
-            </Link>
-          </li>
-          <li>
-            <Link href="/home/return-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
-              Return Books
-            </Link>
-          </li>
-        </ul>
+          <div className="grid grid-cols-2 gap-4 ">
+              <Link href="/home/add-book" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
+                Add Books
+              </Link>
+              <Link href="/home/view-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
+                View Books
+              </Link>
+              <Link href="/home/borrow-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
+                Borrow Books
+              </Link>
+              <Link href="/home/return-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
+                Return Books
+              </Link>
+              <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
+                Reserve Book (Coming Soon)
+              </button>
+          </div>
+        </section>
+
+        <section className="bg-gray-50 rounded-xl p-6 text-left">
+          <h2 className="text-xl font-semibold mb-4 text-gray-900">
+            User Management  
+          </h2>
+          <div className="w-10 h-1 bg-blue-500 rounded mb-4"></div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
+              Add User (Coming Soon)
+            </button>
+            <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
+              Remove User (Coming Soon)
+            </button>
+            <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
+              Update User (Coming Soon)
+            </button>
+          </div>
+
+        </section>
+
+        <section className="bg-gray-50 rounded-xl p-6 text-left">
+          <h2 className="text-xl font-semibold mb-4 text-gray-900">
+            Other Tools
+          </h2>
+          <div className="w-10 h-1 bg-blue-500 rounded mb-4"></div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
+              Admin Log (Coming Soon)
+            </button>
+          </div>
+        </section>
+          
       </div>
     </main>
   );

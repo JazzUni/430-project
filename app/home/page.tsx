@@ -68,6 +68,12 @@ export default function Home() {
               <Link href="/home/add-book" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
                 Add Books
               </Link>
+              <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
+                Update Books (Coming Soon)
+              </button>
+              <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
+                Remove Books (Coming Soon)
+              </button>
               <Link href="/home/view-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
                 View Books
               </Link>
@@ -78,10 +84,10 @@ export default function Home() {
                 Return Books
               </Link>
               <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
-                Reserve Book (Coming Soon)
+                Reserve Books (Coming Soon)
               </button>
           </div>
-        </section>
+        </section><br/>
 
         <section className="bg-gray-50 rounded-xl p-6 text-left">
           <h2 className="text-xl font-semibold mb-4 text-gray-900">
@@ -101,7 +107,7 @@ export default function Home() {
             </button>
           </div>
 
-        </section>
+        </section><br/>
 
         <section className="bg-gray-50 rounded-xl p-6 text-left">
           <h2 className="text-xl font-semibold mb-4 text-gray-900">
@@ -110,9 +116,9 @@ export default function Home() {
           <div className="w-10 h-1 bg-blue-500 rounded mb-4"></div>
 
           <div className="grid grid-cols-2 gap-4">
-            <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
-              Admin Log (Coming Soon)
-            </button>
+            <Link href="/adminlog" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
+                Admin Log
+            </Link>
           </div>
         </section>
           

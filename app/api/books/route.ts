@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Book from "@/models/Book";
+import { logActionWithUser } from "@/lib/logActionWithUser";
 
 export const runtime = "nodejs";
 
@@ -15,8 +16,15 @@ export async function GET() {
 export async function POST(req: Request) {
   await dbConnect();
   const body = await req.json();
+
   try {
     const book = await Book.create(body);
+    await logActionWithUser({
+      action: "ADD_BOOK",
+      target: book.title.toString(),
+      targetId: book._id.toString(),
+    });
+
     return NextResponse.json(book, { status: 201 });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";

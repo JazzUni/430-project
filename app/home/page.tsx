@@ -68,12 +68,6 @@ export default function Home() {
               <Link href="/home/add-book" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
                 Add Books
               </Link>
-              <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
-                Update Books (Coming Soon)
-              </button>
-              <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
-                Remove Books (Coming Soon)
-              </button>
               <Link href="/home/view-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
                 View Books
               </Link>

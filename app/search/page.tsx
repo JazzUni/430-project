@@ -1,6 +1,7 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import BookCard from "@/components/bookCard";
 
 export default function SearchPage() {
 
@@ -116,45 +117,15 @@ export default function SearchPage() {
                     <h2 className="text-xl text-gray-900 font-semibold mb-4">Books</h2>
                     <div className="grid gap-4 hover:shadow-lg transition">
                         {results.books.map((book: any) => (
-                            <div key={book._id} className="bg-white shadow-md rounded-xl p-6">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h2 className="text-lg font-bold text-gray-900">
-                                            {book.title}
-                                        </h2>
-                                        <p className="text-gray-600">by {book.author}</p>
-                                        <p className="text-gray-500 text-sm mt-1">
-                                            ISBN: {book.ISBN}
-                                        </p>
-
-                                        {book.genre && (
-                                            <p className="text-gray-500 text-sm">
-                                                Genre: {book.genre}
-                                            </p>
-                                        )}
-
-                                        {book.location && (
-                                            <p className="text-gray-500 text-sm">
-                                                Location: {book.location}
-                                            </p>
-                                        )}
-                                    </div>
-
-                                    {book.copies && (
-                                        <div className="text-right">
-                                            <p className="text-sm text-gray-600">
-                                                Total: {book.copies.total}
-                                            </p>
-                                            <p className="text-sm text-green-600 font-semibold">
-                                                Available: {book.copies.avail}
-                                            </p>
-                                            <p className="text-sm text-yellow-600">
-                                                Reserved: {book.copies.reserved}
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                            <BookCard
+                            key={book._id}
+                            book={book}
+                            onRefresh={async () => {
+                                const res = await fetch(`/api/search?q=${query}`);
+                                const data = await res.json();
+                                setResults(data);
+                            }}
+                            />
                         ))}
                     </div>
                 </div>

@@ -92,61 +92,100 @@ export default function BookCard({ book, onRefresh }: any) {
 
 			{editing ? (
 				<div className="grid gap-3">
-					<input
-						value={editForm.title}
-						onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-						className="p-2 rounded-lg bg-gray-200 text-gray-900"
-					/>
-					<input
-						value={editForm.author}
-						onChange={(e) => setEditForm({ ...editForm, author: e.target.value })}
-						className="p-2 rounded-lg bg-gray-200 text-gray-900"
-					/>
-					<input
-						value={editForm.genre}
-						onChange={(e) => setEditForm({ ...editForm, genre: e.target.value })}
-						className="p-2 rounded-lg bg-gray-200 text-gray-900"
-					/>
-					<input
-						value={editForm.publisher}
-						onChange={(e) => setEditForm({ ...editForm, publisher: e.target.value })}
-						className="p-2 rounded-lg bg-gray-200 text-gray-900"
-						placeholder="Publisher"
-					/>
-					<input
-						value={editForm.location}
-						onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
-						className="p-2 rounded-lg bg-gray-200 text-gray-900"
-					/>
-
-					<div className="grid grid-cols-3 gap-3">
+					<div>
+						<label className="block text-sm font-medium text-gray-700 mb-1">
+							Title
+						</label>
 						<input
-							type="number"
-							value={editForm.total}
-							onChange={(e) => setEditForm({ ...editForm, total: Number(e.target.value) })}
-							className="p-2 rounded-lg bg-gray-200 text-gray-900"
-						/>
+							value={editForm.title}
+							onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+							className="w-full p-2 rounded-lg bg-gray-200 text-gray-900"
+						/>	
+					</div>
+					<div>
+						<label className="block text-sm font-medium text-gray-700 mb-1">
+							Author
+						</label>
 						<input
-							type="number"
-							value={editForm.avail}
-							onChange={(e) => setEditForm({ ...editForm, avail: Number(e.target.value) })}
-							className="p-2 rounded-lg bg-gray-200 text-gray-900"
-						/>
-						<input
-							type="number"
-							value={editForm.reserved}
-							onChange={(e) => setEditForm({ ...editForm, reserved: Number(e.target.value) })}
-							className="p-2 rounded-lg bg-gray-200 text-gray-900"
+							value={editForm.author}
+							onChange={(e) => setEditForm({ ...editForm, author: e.target.value })}
+							className="w-full p-2 rounded-lg bg-gray-200 text-gray-900"
 						/>
 					</div>
+					<div>
+						<label className="block text-sm font-medium text-gray-700 mb-1">	
+							Genre
+						</label>
+						<input
+							value={editForm.genre}
+							onChange={(e) => setEditForm({ ...editForm, genre: e.target.value })}
+							className="w-full p-2 rounded-lg bg-gray-200 text-gray-900"
+						/>
+					</div>
+					<div>
+						<label className="block text-sm font-medium text-gray-700 mb-1">
+							Publisher
+						</label>
+						<input
+							value={editForm.publisher}
+							onChange={(e) => setEditForm({ ...editForm, publisher: e.target.value })}
+							className="w-full p-2 rounded-lg bg-gray-200 text-gray-900"
+						/>
+					</div>
+					<div>
+						<label className="block text-sm font-medium text-gray-700 mb-1">
+							Location
+						</label>
+						<input
+							value={editForm.location}
+							onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
+							className="w-full p-2 rounded-lg bg-gray-200 text-gray-900"
+						/>
+					</div>
+					<div className="grid grid-cols-3 gap-3">
+						<div>
+							<label className="block text-sm font-medium text-gray-700 mb-1">
+								Total Copies
+							</label>
+							<input
+								type="number"
+								value={editForm.total}
+								onChange={(e) => setEditForm({ ...editForm, total: Number(e.target.value) })}
+								className="w-full p-2 rounded-lg bg-gray-200 text-gray-900"
+							/>
+						</div>
+						<div>
+							<label className="block text-sm font-medium text-gray-700 mb-1">
+								Available Copies
+							</label>
+							<input
+								type="number"
+								value={editForm.avail}
+								onChange={(e) => setEditForm({ ...editForm, avail: Number(e.target.value) })}
+								className="w-full p-2 rounded-lg bg-gray-200 text-gray-900"
+							/>
+						</div>
+						<div>
+							<label className="block text-sm font-medium text-gray-700 mb-1">
+								Reserved Copies
+							</label>
+							<input
+								type="number"
+								value={editForm.reserved}
+								onChange={(e) => setEditForm({ ...editForm, reserved: Number(e.target.value) })}
+								className="w-full p-2 rounded-lg bg-gray-200 text-gray-900"
+							/>
+						</div>
+					</div>	
 
 					<div className="flex gap-3">
 						<button
 							onClick={handleUpdate}
-							className="p-2 px-4 rounded-lg bg-blue-500 hover:bg-blue-600 text-white"
+							className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
 						>
-							{loading ? "Saving..." : "Save"}
+							{loading ? "Saving..." : "Save Changes"}
 						</button>
+						
 						<button
 							onClick={() => {
 								setEditing(false);
@@ -167,37 +206,23 @@ export default function BookCard({ book, onRefresh }: any) {
 						</button>
 					</div>
 				</div>
-
 			) : (
 				<div className="flex justify-between items-start">
 					<div>
-						<h2 className="text-lg font-bold text-gray-900">
-							{book.title}
-						</h2>
+						<h2 className="text-lg font-bold text-gray-900">{book.title}</h2>
 						<p className="text-gray-600">by {book.author}</p>
-						<p className="text-gray-500 text-sm mt-1">
-							ISBN: {book.ISBN}
-						</p>
-
-						{book.genre && (
-							<p className="text-gray-500 text-sm">Genre: {book.genre}</p>
-						)}
-						{book.location && (
-							<p className="text-gray-500 text-sm">Location: {book.location}</p>
-						)}
+						<p className="text-gray-500 text-sm mt-1">ISBN: {book.ISBN}</p>
+						{book.genre && (<p className="text-gray-500 text-sm">Genre: {book.genre}</p>)}
+						{book.location && (<p className="text-gray-500 text-sm">Location: {book.location}</p>)}
 					</div>
-
 					<div className="text-right">
-						<p className="text-sm text-gray-600">
-							Total: {book.copies.total}
-						</p>
-						<p className="text-sm text-green-600 font-semibold">
+						<p className="text-sm text-gray-600">Total: {book.copies.total}</p>
+						<p className="text-sm text-green-600 font-semibold">	
 							Available: {book.copies.avail}
 						</p>
 						<p className="text-sm text-yellow-600">
 							Reserved: {book.copies.reserved}
 						</p>
-
 						<div className="flex gap-2 mt-4 justify-end">
 							<button
 								onClick={() => setEditing(true)}
@@ -218,3 +243,4 @@ export default function BookCard({ book, onRefresh }: any) {
 		</div>
 	);
 }
+			

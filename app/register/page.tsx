@@ -1,43 +1,37 @@
 "use client";
-import './styles.css';
+import "../styles.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function Login() {
+export default function Register() {
 
-  // route to home page if logged in
   const router = useRouter();
 
-  // email and pass constants set to '' by default
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // handle login form submit
   async function handleSubmit(e: React.SyntheticEvent) {
-
     e.preventDefault();
 
-    // connection to api, sends email and password
-    const res = await fetch("/api/login", {
+    const res = await fetch("/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ firstName, lastName, email, password }),
     });
 
-    // debugging in browser console
     const data = await res.json();
     console.log(data);
 
     if (res.ok) {
-      router.push("/home");
+      router.push("/");
     }
-
   }
 
-  // UI
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center p-8">
       <div className="bg-white shadow-md rounded-xl p-8 w-full max-w-xl">
@@ -46,17 +40,33 @@ export default function Login() {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Library Management System
             </h1>
-            
+
             <p className="text-gray-700 mb-6">
-              Welcome to the Library Management System dashboard<br />
-              Please login to continue
+              Fill in your details below
             </p>
 
             <form className="form" onSubmit={handleSubmit}>
               <input
                 className="text-gray-700 p-2 rounded-lg bg-gray-200"
                 type="text"
+                placeholder="First Name"
+                required
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+
+              <input
+                className="text-gray-700 p-2 rounded-lg bg-gray-200"
+                type="text"
+                placeholder="Last Name"
+                required
+                onChange={(e) => setLastName(e.target.value)}
+              />
+
+              <input
+                className="text-gray-700 p-2 rounded-lg bg-gray-200"
+                type="text"
                 placeholder="Email"
+                required
                 onChange={(e) => setEmail(e.target.value)}
               />
 
@@ -64,6 +74,7 @@ export default function Login() {
                 className="text-gray-700 p-2 rounded-lg bg-gray-200"
                 type="password"
                 placeholder="Password"
+                required
                 onChange={(e) => setPassword(e.target.value)}
               />
 
@@ -71,20 +82,20 @@ export default function Login() {
                 className="p-3 rounded-lg bg-gray-200 hover:bg-blue-500 text-gray-900 hover:text-gray-100 cursor-pointer transition"
                 type="submit"
               >
-                Login
+                Register
               </button>
             </form>
 
-            {/* Register link */}
+            {/* Back to login */}
             <p className="mt-4 text-gray-700">
-              Don’t have an account?{" "}
-              <Link href="/register" className="text-blue-600 hover:underline">
-                Sign Up
+              Already have an account?{" "}
+              <Link href="/" className="text-blue-600 hover:underline">
+                Sign In
               </Link>
             </p>
           </div>
         </div>
       </div>
-    </main> 
+    </main>
   );
 }

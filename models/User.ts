@@ -4,22 +4,24 @@ const UserSchema = new mongoose.Schema({
 
     password: {
         type: String,
-        required: function () {
-            return this.userType === "Admin";
-        }
+        required: true
     },
     firstName: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     lastName: {
         type: String,
-        default: ""
+        required: true,
+        trim: true
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        lowercase: true,
+        trim: true
     },
     phoneNumber: {
         type: String
@@ -34,7 +36,8 @@ const UserSchema = new mongoose.Schema({
     userType: {
         type: String,
         enum: ["Admin", "User"],
-        required: true
+        required: true,
+        default: "User"
     }
 
 });

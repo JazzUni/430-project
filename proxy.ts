@@ -14,9 +14,9 @@ export function proxy(req: NextRequest) {
 
     const session = req.cookies.get("session");
 
-    const isLoginPage = req.nextUrl.pathname === "/";
+    const isPublicPage = pathname === "/" || pathname === "/register";
 
-    if (isLoginPage) {
+    if (isPublicPage) {
         return NextResponse.next();
     }
 

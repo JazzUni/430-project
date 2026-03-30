@@ -90,15 +90,12 @@ export default function Home() {
           <div className="w-10 h-1 bg-blue-500 rounded mb-4"></div>
 
           <div className="grid grid-cols-2 gap-4">
-            <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
-              Add User (Coming Soon)
-            </button>
-            <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
-              Remove User (Coming Soon)
-            </button>
-            <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
-              Update User (Coming Soon)
-            </button>
+            <Link href="/home/add-user" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
+              Add User
+            </Link>
+            <Link href="/home/view-users" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
+              View Users
+            </Link>
           </div>
 
         </section><br/>

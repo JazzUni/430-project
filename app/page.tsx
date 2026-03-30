@@ -2,7 +2,6 @@
 import './styles.css';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function Login() {
 
@@ -14,27 +13,46 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   // handle login form submit
-  async function handleSubmit(e: React.SyntheticEvent) {
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
+  async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
     // connection to api, sends email and password
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    setError("");
 
-    // debugging in browser console
-    const data = await res.json();
-    console.log(data);
-
-    if (res.ok) {
-      router.push("/home");
+    if (!email || !password) {
+      setError("Please fill in all fields");
+      return;
     }
 
+    try {
+      setLoading(true);
+
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Login failed");
+        return;
+      }
+
+      router.push("/home");
+
+    } catch (err) {
+      setError("Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   // UI
@@ -46,7 +64,6 @@ export default function Login() {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Library Management System
             </h1>
-            
             <p className="text-gray-700 mb-6">
               Welcome to the Library Management System dashboard<br />
               Please login to continue
@@ -57,6 +74,7 @@ export default function Login() {
                 className="text-gray-700 p-2 rounded-lg bg-gray-200"
                 type="text"
                 placeholder="Email"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
 
@@ -64,24 +82,26 @@ export default function Login() {
                 className="text-gray-700 p-2 rounded-lg bg-gray-200"
                 type="password"
                 placeholder="Password"
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
 
+              {error && (
+                <p className="text-red-500 text-sm">{error}</p>
+              )}
+
               <button
-                className="p-3 rounded-lg bg-gray-200 hover:bg-blue-500 text-gray-900 hover:text-gray-100 cursor-pointer transition"
+                className={`p-3 rounded-lg transition ${
+                  loading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-gray-200 hover:bg-blue-500 text-gray-900 hover:text-gray-100"
+                }`}
                 type="submit"
+                disabled={loading}
               >
-                Login
+                {loading ? "Logging in..." : "Login"}
               </button>
             </form>
-
-            {/* Register link */}
-            <p className="mt-4 text-gray-700">
-              Don’t have an account?{" "}
-              <Link href="/register" className="text-blue-600 hover:underline">
-                Sign Up
-              </Link>
-            </p>
           </div>
         </div>
       </div>

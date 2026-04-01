@@ -14,18 +14,27 @@ export default function ReserveBooks() {
   const router = useRouter();
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState("");
   const [memberEmail, setMemberEmail] = useState("");
   const [selectedBook, setSelectedBook] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const selectedBookData = books.find((book) => book._id === selectedBook);
 
   useEffect(() => {
     async function fetchBooks() {
       try {
         const res = await fetch("/api/books");
+        if (!res.ok) {
+          throw new Error("Failed to fetch books.");
+        }
         const data = await res.json();
-        setBooks(data.filter((b: Book) => b.copies.avail === 0));
-      } finally {
+        setBooks(data);
+      } 
+      catch (error) {
+        setFetchError("Could not load reservable books right now. Please try again later.");
+      }
+      finally {
         setLoading(false);
       }
     }
@@ -75,6 +84,12 @@ export default function ReserveBooks() {
 
         {message && <p className="text-green-500 mb-4">{message}</p>}
         {error && <p className="text-red-500 mb-4">{error}</p>}
+        {fetchError && <p className="text-red-500 mb-4">{fetchError}</p>}
+        {!loading && !fetchError && books.length === 0 && (
+          <p className="text-gray-600 mb-4">
+            No books were found in the database yet.
+          </p>
+        )}
 
         <form onSubmit={handleReserve} className="flex flex-col gap-4">
           <input
@@ -90,6 +105,7 @@ export default function ReserveBooks() {
             value={selectedBook}
             onChange={(e) => setSelectedBook(e.target.value)}
             required
+            disabled={loading || books.length === 0}
             className="p-2 rounded-lg bg-gray-200 text-gray-900"
           >
             <option value="">-- Select a Book to Reserve --</option>
@@ -98,14 +114,22 @@ export default function ReserveBooks() {
             ) : (
               books.map((book) => (
                 <option key={book._id} value={book._id}>
-                  {book.title} by {book.author} (Reserved: {book.copies.reserved})
+                  {book.title} by {book.author} (Available: {book.copies.avail}, Reserved: {book.copies.reserved})
                 </option>
               ))
             )}
           </select>
+          {selectedBookData && (
+            <p className="text-sm text-gray-600">
+              {selectedBookData.copies.avail === 0
+                ? "This book can be reserved."
+                : "This book still has available copies. The reservations are allowed only when available copies are 0."}
+            </p>
+          )}
 
           <button
             type="submit"
+            disabled={!selectedBook || (selectedBookData?.copies.avail ?? 0) > 0}
             className="p-3 rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition cursor-pointer"
           >
             Reserve Book

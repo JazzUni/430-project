@@ -77,9 +77,10 @@ export default function Home() {
               <Link href="/home/return-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
                 Return Books
               </Link>
-              <button className="block p-4 rounded-lg bg-gray-200 text-gray-500 cursor-not-allowed text-center">
-                Reserve Books (Coming Soon)
-              </button>
+              <Link href="/home/reserve-books" className="block p-4 rounded-lg bg-gray-200 hover:bg-blue-500 hover:text-white text-gray-900 cursor-pointer transition">
+                Reserve Books
+              </Link>
+
           </div>
         </section><br/>
 

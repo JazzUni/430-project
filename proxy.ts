@@ -24,15 +24,21 @@ export function proxy(req: NextRequest) {
         return NextResponse.redirect(new URL("/", req.url));
     }
 
-    if (session) {
+    try {
         const data = JSON.parse(session.value);
         const TEN_MINUTES = 10 * 60 * 1000;
-
-        if (Date.now() - data.lastActivity > TEN_MINUTES) {
-            return NextResponse.redirect(new URL("/", req.url));
+        
+        if (!data.lastActivity || Date.now() - data.lastActivity > TEN_MINUTES) {
+            const response = NextResponse.redirect(new URL("/", req.url));
+            response.cookies.delete("session");
+            return response;
         }
+    } catch (err) {
+        const response = NextResponse.redirect(new URL("/", req.url));
+        response.cookies.delete("session");
+        return response;
     }
-
+    
     return NextResponse.next();
 
 }

@@ -4,14 +4,16 @@ import { useEffect } from "react";
 export default function ActivityTracker() {
     useEffect(() => {
 
-        let timeout: any;
+        let timeout: ReturnType<typeof setTimeout> | null = null;
 
         const update = () => {
-            clearTimeout(timeout);
+            if (timeout) {
+                clearTimeout(timeout);
+            }
 
             timeout = setTimeout(() => {
-                fetch("/api/refresh-session");
-            }, 1000);
+                fetch("/api/refresh-session").catch(() => {});
+            }, 3000);
             
         };
 
@@ -21,6 +23,10 @@ export default function ActivityTracker() {
         window.addEventListener("scroll", update);
 
         return () => {
+
+            if (timeout) {
+                clearTimeout(timeout);
+            }
             window.removeEventListener("click", update);
             window.removeEventListener("keydown", update);
             window.removeEventListener("mousemove", update);
